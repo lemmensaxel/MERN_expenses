@@ -1,0 +1,28 @@
+{
+  "name": "mern_expenses",
+  "version": "1.0.0",
+  "description": "Expenses application built with the MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server-dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/lemmensaxel/mern_expenses.git"
+  },
+  "author": "Axel Lemmens",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/lemmensaxel/mern_expenses#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.1",
+    "crypto": "^1.0.1",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
