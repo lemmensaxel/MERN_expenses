@@ -22,6 +22,10 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: false
+  },
+  level: {
+    type: Number,
+    required: true
   }
 });
 
