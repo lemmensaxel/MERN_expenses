@@ -1,23 +1,16 @@
 import React, { Component } from "react";
 import { Table, Icon } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
-export default class ExpensesTable extends Component {
-  state = {
-    items: [
-      {
-        name: "Vliegtuig tickets",
-        amount: 654.65,
-        payedBy: "Axel Lemmens",
-        date: "18/08/2018"
-      },
-      {
-        name: "Autohuur",
-        amount: 123.45,
-        payedBy: "Axel Lemmens",
-        date: "18/08/2018"
-      }
-    ]
-  };
+// Redux
+import { connect } from "react-redux";
+import { getExpenses } from "../actions/expenseActions";
+
+class ExpensesTable extends Component {
+  componentDidMount() {
+    this.props.getExpenses();
+  }
+
   render() {
     return (
       <Table celled striped>
@@ -32,7 +25,7 @@ export default class ExpensesTable extends Component {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {this.state.items.map(item => {
+          {this.props.expense.expenses.map(item => {
             return (
               <Table.Row>
                 <Table.Cell>{item.name}</Table.Cell>
@@ -56,3 +49,17 @@ export default class ExpensesTable extends Component {
     );
   }
 }
+
+ExpensesTable.propTypes = {
+  getExpenses: PropTypes.func.isRequired,
+  expense: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  expense: state.expense
+});
+
+export default connect(
+  mapStateToProps,
+  { getExpenses }
+)(ExpensesTable);
