@@ -10,3 +10,24 @@ export const getExpenses = () => {
     type: GET_EXPENSES
   };
 };
+
+export const deleteExpense = id => {
+  return {
+    type: DELETE_EXPENSE,
+    payload: id
+  };
+};
+
+export const addExpense = newExpense => {
+  return {
+    type: ADD_EXPENSE,
+    payload: newExpense
+  };
+};
+
+export const editExpense = newExpense => {
+  return {
+    type: EDIT_EXPENSE,
+    payload: newExpense
+  };
+};
