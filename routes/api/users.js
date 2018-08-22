@@ -17,7 +17,7 @@ const User = require("../../models/User");
 // @access Users with level >= 2
 router.get("/", middleware.verifyToken, (req, res) => {
   jwt.verify(req.token, secretKey, (err, authData) => {
-    if (err || authData.user.level < 2) {
+    if (err) {
       res.sendStatus(403);
     } else {
       User.find().then(users => res.json(users));

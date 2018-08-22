@@ -7,12 +7,26 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT
+  LOGOUT,
+  USERS_LOADING
 } from "../actions/types";
 
 export const getUsers = () => {
-  return {
-    type: GET_USERS
+  return dispatch => {
+    dispatch(setUsersLoading());
+    fetch("/api/users", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.authToken
+      }
+    }).then(res => {
+      res.json().then(json => {
+        dispatch({
+          type: GET_USERS,
+          payload: json
+        });
+      });
+    });
   };
 };
 
@@ -49,7 +63,7 @@ export const login = (username, password) => {
       body: '{"username": "' + username + '", "password": "' + password + '"}'
     })
       .then(res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           res.json().then(json => {
             localStorage.authToken = json.token;
             dispatch({
@@ -70,26 +84,16 @@ export const login = (username, password) => {
           errorMessage: "Failed to authenticate with API!"
         });
       });
-
-    // api
-    //   .post("/knock", credentials)
-    //   .then(res => {
-    //     localStorage.authToken = res.data.token;
-    //     dispatch({
-    //       type: LOGIN_SUCCESS,
-    //       user: jwtDecode(res.data.token)
-    //     });
-    //   })
-    //   .catch(res => {
-    //     dispatch({
-    //       type: LOGIN_FAILURE,
-    //       errorMessage: res.data.error
-    //     });
-    //   });
   };
 };
 
 export const logout = () => {
   delete localStorage.authToken;
   return { type: LOGOUT };
+};
+
+export const setUsersLoading = () => {
+  return {
+    type: USERS_LOADING
+  };
 };

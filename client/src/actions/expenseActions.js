@@ -2,12 +2,26 @@ import {
   GET_EXPENSES,
   ADD_EXPENSE,
   EDIT_EXPENSE,
-  DELETE_EXPENSE
+  DELETE_EXPENSE,
+  EXPENSES_LOADING
 } from "./types";
 
 export const getExpenses = () => {
-  return {
-    type: GET_EXPENSES
+  return dispatch => {
+    dispatch(setExpensesLoading());
+    fetch("/api/expenses", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + localStorage.authToken
+      }
+    }).then(res => {
+      res.json().then(json => {
+        dispatch({
+          type: GET_EXPENSES,
+          payload: json
+        });
+      });
+    });
   };
 };
 
@@ -29,5 +43,11 @@ export const editExpense = newExpense => {
   return {
     type: EDIT_EXPENSE,
     payload: newExpense
+  };
+};
+
+export const setExpensesLoading = () => {
+  return {
+    type: EXPENSES_LOADING
   };
 };

@@ -5,7 +5,9 @@ import {
   Grid,
   Header,
   Segment,
-  Message
+  Message,
+  Loader,
+  Dimmer
 } from "semantic-ui-react";
 
 import PropTypes from "prop-types";
@@ -31,66 +33,76 @@ class LoginPage extends Component {
   };
 
   render() {
-    return (
-      <div className="login-form">
-        {/*
+    if (this.props.user.isAuthenticating) {
+      return (
+        <div className="App">
+          <Dimmer active>
+            <Loader>Loading</Loader>
+          </Dimmer>
+        </div>
+      );
+    } else {
+      return (
+        <div className="login-form">
+          {/*
               Heads up! The styles below are necessary for the correct render of this example.
               You can do same with CSS, the main idea is that all the elements up to the `Grid`
               below must have a height of 100%.
             */}
-        <style>{`
+          <style>{`
               body > div,
               body > div > div,
               body > div > div > div.login-form {
                 height: 100%;
               }
             `}</style>
-        <Grid
-          textAlign="center"
-          style={{ height: "100%" }}
-          verticalAlign="middle"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="teal" textAlign="center">
-              Log-in to Expensify!
-            </Header>
-            <Form size="large">
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  value={this.state.username}
-                  onChange={e => this.setState({ username: e.target.value })}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={e => this.setState({ password: e.target.value })}
-                />
+          <Grid
+            textAlign="center"
+            style={{ height: "100%" }}
+            verticalAlign="middle"
+          >
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as="h2" color="teal" textAlign="center">
+                Log-in to Expensify!
+              </Header>
+              <Form size="large">
+                <Segment stacked>
+                  <Form.Input
+                    fluid
+                    icon="user"
+                    iconPosition="left"
+                    placeholder="Username"
+                    value={this.state.username}
+                    onChange={e => this.setState({ username: e.target.value })}
+                  />
+                  <Form.Input
+                    fluid
+                    icon="lock"
+                    iconPosition="left"
+                    placeholder="Password"
+                    type="password"
+                    value={this.state.password}
+                    onChange={e => this.setState({ password: e.target.value })}
+                  />
 
-                <Button
-                  color="teal"
-                  fluid
-                  size="large"
-                  onClick={this.login.bind(this)}
-                >
-                  Login
-                </Button>
-              </Segment>
-            </Form>
-            {this.props.user.errorMessage && (
-              <Message color="red">{this.props.user.errorMessage}</Message>
-            )}
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
+                  <Button
+                    color="teal"
+                    fluid
+                    size="large"
+                    onClick={this.login.bind(this)}
+                  >
+                    Login
+                  </Button>
+                </Segment>
+              </Form>
+              {this.props.user.errorMessage && (
+                <Message color="red">{this.props.user.errorMessage}</Message>
+              )}
+            </Grid.Column>
+          </Grid>
+        </div>
+      );
+    }
   }
 }
 
