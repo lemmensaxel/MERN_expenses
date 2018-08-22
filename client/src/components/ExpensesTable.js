@@ -69,7 +69,9 @@ class ExpensesTable extends Component {
 
 ExpensesTable.propTypes = {
   getExpenses: PropTypes.func.isRequired,
-  expense: PropTypes.object.isRequired
+  deleteExpense: PropTypes.func.isRequired,
+  expense: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

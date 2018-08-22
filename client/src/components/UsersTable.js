@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 // Redux
 import { connect } from "react-redux";
-import { getUsers, deleteUser } from "../actions/userActions";
+import { getUsers, deleteUser, login, logout } from "../actions/userActions";
 import EditUserModal from "../components/EditUserModal";
 
 class UsersTable extends Component {
@@ -62,6 +62,9 @@ class UsersTable extends Component {
 
 UsersTable.propTypes = {
   getUsers: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
 
@@ -71,5 +74,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUsers, deleteUser }
+  { getUsers, deleteUser, login, logout }
 )(UsersTable);
